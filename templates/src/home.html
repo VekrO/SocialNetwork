@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- HOME CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+    <!-- DEFAULT CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Markinsta</title>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="navbar-brand" href=""><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="nav-item nav-item-search">
+                    <form class="form-search" method="GET">
+                        <button><i class="fa-solid fa-search"></i></button>
+                        <input type="text" name="search" class="form-search-input" placeholder="Procure no Markinsta">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <span class="user-profile-name">Hey, <span class="user-profile-name-span">{{ request.user.name }}</span></span>
+                    <div class="user-wrapper">
+                        <a class="nav-link nav-user-profile">
+                            <img class="user-profile-image" data-token="{{ request.session.token }}" src="{{ request.user.image.url}}" alt="{{ request.user.name }}">
+                        </a>
+                        <div class="profile-menu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'profile' request.user.username %}"><i class="fa-solid fa-user"></i>Conta</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i>Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section class="row">
+
+            <div class="col">
+
+                <div class="col-header">
+                    <img class="col-header-image" src="{{ request.user.image.url}}" alt="{{ request.user.name }}">
+                    <div class="col-header-content">
+                        <h2>{{ request.user.name }}</h2>
+                        <span>{{ request.user.username }}</span>
+                    </div>
+                </div>
+                <div class="col-content">
+                    <p class="col-content-followers-p">Seguidores</p>
+                    <span class="col-content-followers-span">{{ request.user.follower_number }}</span>
+                </div>
+
+                {% comment %} <div class="col-footer">
+                    <button class="btn-show-modal-new-post"><i class="fa-solid fa-pen"></i> Markinstar</button>
+                </div> {% endcomment %}
+
+            </div>
+            <div class="col">
+                <div class="post-new">
+                    <form method="POST" class="form-post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <textarea maxlength="255" oninput='if(this.scrollHeight > this.offsetHeight) this.rows += 1' name="description" placeholder="No que está pensando ?" id="description"></textarea>
+                        <label for="image"><i class="fa-solid fa-image"></i><span class="file-label-text">Selecione um arquivo</span></label>
+                        <input type="file" hidden name="image" oninput="changeInputFileText()" id="image">
+                        <button type="submit" class="post-button-confirm">Markinstar</button>
+                        <small>Todos podem ver suas publicações.</small>
+                    </form>
+                </div>
+                <div class="infinite-container">
+                        {% for post in posts %}
+                        <div class="post infinite-item">
+                            <div class="post-header">
+                                <div class="post-header-left">
+                                    <div class="post-header-user">
+                                        <img class="post-user-image" src="{{ post.user.image.url }}" alt="">
+                                    </div>
+                                    <div class="post-header-user-wrapper">
+                                        <a href="{% url 'profile' post.user.username %}" style="color: black; text-decoration: none;"><p class="post-header-name">{{ post.user.name }}</p></a>
+                                        <p class="post-header-username">{{ post.user.username }}</p>
+                                    </div>
+                                </div>
+                                {% if request.user == post.user %}
+                                <button data-id="{{ post.id }}" onclick="deleteWarning(this)" class="button-delete-post">&times;</button>
+                                {% endif %}
+                                <div class="post-header-time">
+                                    <i class="fa-solid fa-clock"></i>
+                                    <span class="post-header-time-text">{{ post.created_at | time }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="post-content">
+                                    <p class="post-content-text">{{ post.description }}</p>
+                                    {% if post.image %}
+                                    <div class="post-content-image-box">
+                                        <img src="{{ post.image.url }}" alt="{{ post.description }}">
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="post-footer">
+                                    <div class="post-footer-group">
+                                        <div class="post-footer-group-option">
+                                            <a href="{% url 'post-detail' post.id %}"><i class="fa-regular fa-message"></i></a>
+                                        </div>
+                                        {% if request.user in post.likers.all %}
+                                        <div class="post-footer-group-option" data-id="{{ post.id }}" onclick="likeEvent(this)">
+                                            <a style="color: red;"><i class="fa-regular fa-heart"></i></a>
+                                        </div>
+                                        {% else %}
+                                        <div class="post-footer-group-option" data-id="{{ post.id }}" onclick="likeEvent(this)">
+                                            <a><i class="fa-regular fa-heart"></i></a>
+                                        </div>
+                                        {% endif %}
+                                        <div class="post-footer-group-option">
+                                            <a><i class="fa-solid fa-share"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% if page_obj.has_next %}
+                    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- CONTROLLERS -->
+    <script src="{% static 'js/HeaderController.js' %}"></script>
+    <script src="{% static 'js/FileController.js' %}"></script>
+
+    <!-- INFINITE SCROLL -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/infinite.min.js' %}"></script>
+    
+    <!-- ALERTIFY -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/HomeController.js' %}"></script>
+    <script src="{% static 'js/PostController.js' %}"></script>
+    <script src="{% static 'js/ActionController.js' %}"></script>
+
+    <script>
+
+        var infinite = new Waypoint.Infinite({
+            element: $('.infinite-container')[0],
+            handler: function(direction) {
+        },
+
+        offset: 'bottom-in-view',
+    
+        onBeforePageLoad: function () {
+
+            $('.spinner-border').show();
+
+        },
+        onAfterPageLoad: function () {
+
+            $('.spinner-border').hide();
+
+        }
+    
+        });
+
+    </script>
+
+</body>
+</html>

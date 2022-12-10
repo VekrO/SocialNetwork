@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- REGISTER CSS -->
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Markinsta - Criar uma conta</title>
+</head>
+<body>
+
+    <main class="container">
+
+        <section class="row">
+            
+            <form method="POST" action="#" class="form-login">
+                
+                <div class="form-group">
+                    {% csrf_token %}
+                    <h1>Markinsta</h1>
+                    <p>Conecte-se para ver fotos e vídeos dos seus amigos.</p>
+                    <img style="border-radius: 0;" src="https://wedologos.bladecdn.net/wp-content/uploads/2016/03/habitos-pessoas-felizes-01.jpg" alt="">
+                </div>
+                {% for message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                <br>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" placeholder="E-mail">
+                    <small class="email-error error">Erro</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" placeholder="Senha">
+                    <small class="password-error error">Erro</small>
+                </div>
+                <a href="{% url 'register' %}" style="color: royalblue;">Criar uma nova conta</a>
+                <br>
+                <button class="btn-confirm" type="submit">
+                    Entrar
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+    <script src="{% static 'js/FileController.js' %}"></script>
+    <script src="{% static 'js/LoginController.js' %}"></script>
+</body>
+</html>

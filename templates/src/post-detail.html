@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- PROFILE CSS -->
+    <link rel="stylesheet" href="{% static 'css/post-detail.css' %}">
+    
+    <!-- DEFAULT CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Markinsta</title>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="navbar-brand" href=""><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="nav-item nav-item-search">
+                    <form class="form-search" method="GET">
+                        <button><i class="fa-solid fa-search"></i></button>
+                        <input type="text" name="search" class="form-search-input" placeholder="Procure no Markinsta">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <span class="user-profile-name">Hey, <span class="user-profile-name-span">{{ request.user.name }}</span></span>
+                    <div class="user-wrapper">
+                        <a class="nav-link nav-user-profile">
+                            <img class="user-profile-image" data-token="{{ request.session.token }}" src="{{ request.user.image.url }}" alt="{{ request.user.name }}">
+                        </a>
+                        <div class="profile-menu">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'home' %}"><i class="fa-solid fa-user"></i>Voltar</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i>Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <div class="post">
+
+            <div class="post-header">
+
+                <div class="post-header-wrapper">
+                    <img src="{{ post.user.image.url }}" alt="{{ post.user.name }}">
+                    <div class="post-header-user-wrapper">
+                        <p>{{ post.user.name }}</p>
+                        <span>{{ post.user.username }}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="post-content">
+                {% if post.description %}
+                <p class="post-text">
+                    {{ post.description }}
+                </p>
+                {% endif %}
+                <br>
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="{{ post.description }}">
+                {% endif %}
+
+            </div>
+            <div class="post-footer">
+
+                <div class="post-footer-row">
+                    <p class="post-footer-row-time">3:31 PM - Dec 7, 2022</p>
+                </div>
+                <div class="post-footer-row">
+                    <div class="post-footer-row-comments">
+                        <p class="post-footer-row-comment-value"><span>{{ post.comment_number}}</span> Comentários</p>
+                        <p class="post-footer-row-like-value"><span>{{ post.like_number }}</span> Likes</p>
+                    </div>
+                </div>
+                <div class="post-footer-group">
+                    {% if request.user in post.likers.all %}
+                    <div class="post-footer-group-option" data-id="{{ post.id }}" onclick="likeEvent(this)">
+                        <a style="color: red;"><i class="fa-regular fa-heart"></i></a>
+                    </div>
+                    {% else %}
+                    <div class="post-footer-group-option" data-id="{{ post.id }}" onclick="likeEvent(this)">
+                        <a><i class="fa-regular fa-heart"></i></a>
+                    </div>
+                    {% endif %}
+                    <div class="post-footer-group-option">
+                        <a href=""><i class="fa-solid fa-share"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <form method="POST" class="comment-form">
+                <div class="form-group">
+                    <img src="{{ request.user.image.url }}" alt="{{ request.user.name }}">
+                    <textarea type="text" name="description" maxlength="255" placeholder="Comente algo..."></textarea>
+                    <input type="hidden" value="{{ post.id }}" name="post_id">
+                    <button type="submit"><i class="fa-solid fa-check"></i></button>
+                </div>
+            </form>            
+    
+            </div>
+
+            <div class="post-comment-list">
+        
+                {% for comment in post.comments.all %}
+
+                <div class="post-card-comment">
+                    <div class="post-card-comment-header">
+                        <div class="post-header-wrapper">
+                            <img src="{{ comment.user.image.url }}" alt="{{ comment.user.name }}">
+                            <div class="post-header-user-wrapper">
+                                <div>
+                                    <p>{{ comment.user.name }}</p>
+                                    <span>{{ comment.user.username }}</span>
+                                </div>
+                                <div class="span-group-header">
+                                    {{ comment.updated_at }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-card-text-comment">
+                            <div class="post-card-comment-text">
+                                <p>{{ comment.description }}</p>
+                            </div>
+                            {% if request.user == comment.user %}
+                            <div class="post-card-text-comment-footer">
+                                <button data-id="{{ comment.id }}" data-post="{{ post.id }}" onclick="deleteComment(this)"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                {% endfor %}
+
+            </div>
+
+    </main>
+
+    <!-- CONTROLLERS -->
+    <script src="{% static 'js/HeaderController.js' %}"></script>
+    <script src="{% static 'js/ActionController.js' %}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/CommentController.js' %}"></script>
+
+</body>
+</html>

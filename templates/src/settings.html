@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- PROFILE CSS -->
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    
+    <!-- DEFAULT CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Markinsta</title>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="navbar-brand" href=""><i class="fa-brands fa-instagram"></i></a>
+                </li>
+                <li class="nav-item nav-item-search">
+                    <form class="form-search" method="GET">
+                        <button><i class="fa-solid fa-search"></i></button>
+                        <input type="text" name="search" class="form-search-input" placeholder="Procure no Markinsta">
+                    </form>
+                </li>
+                <li class="nav-item">
+                    {% if request.user.is_authenticated %}
+                        <span class="user-profile-name">Hey, <span class="user-profile-name-span">{{ request.user.name }}</span></span>
+                        <div class="user-wrapper">
+                            <a class="nav-link nav-user-profile">
+                                <img class="user-profile-image" data-token={{ request.session.token }} src="{{ request.user.image.url }}" alt="{{ request.user.name }}">
+                            </a>
+                            <div class="profile-menu">
+                                <ul>
+                                    <li>
+                                        <a href="{% url 'home' %}"><i class="fa-solid fa-user"></i>Voltar</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'settings' %}"><i class="fa-solid fa-gear"></i>Configurações</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Sair</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'login' %}" style="font-size: 20px; color: royalblue; text-decoration: none;">Entrar</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <section class="row">
+            
+            <div class="col">
+                
+                <div class="col-wrapper">
+                    
+                    <div class="col-header">
+                        <div class="col-header-wrapper">
+                            <img class="col-header-user-image" src="{{ request.user.image.url }}" alt="{{ request.user.name }}">
+                            <div class="col-header-user">
+                                <p class="col-header-user-name">{{ request.user.name }}</p>
+                                <p class="col-header-user-username">{{ request.user.username }}</p>
+                            </div>
+                        </div>
+                        <div class="col-header-description">
+                            <div class="col-header-follower-wrapper">
+                                <p class="col-header-followers">Seguidores</p>
+                                <span class="followers-number">{{ request.user.follower_number }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-content">
+                        <h1>Alterar configurações da conta</h1>
+                        <div class="col-content-wrapper">
+                            <button onclick="changeName()">Nome</button>
+                            <button onclick="changePassword()">Senha</button>
+                        </div>
+                    </div>
+    
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- CONTROLLERS -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/HeaderController.js' %}"></script>
+    <script src="{% static 'js/SettingController.js' %}"></script>
+</body>
+</html>
