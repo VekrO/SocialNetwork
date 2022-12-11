@@ -1,0 +1,184 @@
+:root{
+
+    --color1: #1DA1F2;
+    --color2: #14171A;
+    --color3: #657786;
+    --color4: #AAB8C2;
+    --color5: #E1E8ED;
+    --color7: #F5F8FA;
+    --white: #fff;
+    --black: #fff;
+
+    --transition1: all 0.1s ease-in-out;
+    --transition2: all 0.2s ease-in-out;
+    --transition3: all 0.3s ease-in-out;
+
+}
+
+.container .row .col {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px 0;
+}
+.container .row .col .col-header{
+    width: 100%;
+    background-color: white;
+    height: 200px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 10px;
+    width: 500px;
+}
+.container .row .col .col-header .col-header-wrapper{
+    display: flex;
+    gap: 15px;
+}
+.container .row .col .col-header .col-header-user{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+.container .row .col .col-header .col-header-user .col-header-user-name{
+    font-size: 20px;
+    font-weight: 600;
+}
+.container .row .col .col-header .col-header-user .col-header-user-username {
+    color: #657786;
+}
+.container .row .col .col-header .col-header-user-image{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.container .row .col .col-header .col-header-description .col-header-follower-wrapper p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #657786;
+}
+.container .row .col .col-header .col-header-description .col-header-follower-wrapper span {
+    color: #1DA1F2;
+    font-size: 20px;
+    font-weight: 600;
+}
+.container .row .col .col-header .col-header-option button{
+    width: 100px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #1DA1F2;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.container .row .col .post-group {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 150px);
+    gap: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.container .row .col .post-group .post {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container .row .col .post-group .post img {
+    width: 150px;
+}
+.col-content{
+    width: 500px;
+}
+.col-content-wrapper{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+.col-content-wrapper button {
+    font-size: 20px;
+    background-color: #1DA1F2;
+    border: 0;
+    height: 35px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    transition: var(--transition3);
+}
+
+.col-content-wrapper button:hover {
+    border-radius: 7px;
+    background-color: #147cbd;
+}
+
+@media (max-width: 1024px){
+    .container .row .col .post-group {
+        grid-template-columns: repeat(3, 150px);
+    }
+}
+
+@media (max-width: 600px){
+    .container .row .col .col-wrapper {
+        width: 90%;
+    }
+    .container .row .col .col-header{
+        height: max-content;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .container .row .col .col-header .col-header-user{
+        text-align: center;
+    }
+    .container .row .col .col-header .col-header-wrapper{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .container .row .col .col-header .col-header-description .col-header-follower-wrapper{
+        text-align: center;
+    }
+    .container .row .col .col-header .col-header-option button {
+        width: 100px;
+    }
+    .container .row .col .col-header .col-header-user-image{
+        width: 70px;
+        height: 70px;
+    }
+    .container .row .col .post-group {
+        width: 100%;
+        justify-content: center;
+        gap: 2px;
+        grid-template-columns: repeat(3, 150px);
+    }
+}
+
+@media (max-width: 500px){
+    .container .row .col .post-group .post img {
+        width: 100px;
+    }
+    .container .row .col .post-group {
+        width: 100%;
+        grid-template-columns: repeat(3, 105px);
+    }
+}
+
+@media (max-width: 300px){
+    .container .row .col .post-group .post img {
+        width: 100%;
+    }
+    .container .row .col .post-group {
+        width: 100%;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+

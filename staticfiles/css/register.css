@@ -1,0 +1,115 @@
+:root{
+
+    --color1: #1DA1F2;
+    --color2: #14171A;
+    --color3: #657786;
+    --color4: #AAB8C2;
+    --color5: #E1E8ED;
+    --color7: #F5F8FA;
+    --white: #fff;
+    --black: #fff;
+
+    --transition1: all 0.1s ease-in-out;
+    --transition2: all 0.2s ease-in-out;
+    --transition3: all 0.3s ease-in-out;
+
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.container .row {
+    width: 300px;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+}
+.container .row form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.container .row form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+.container .row form .form-group input {
+    height: 35px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #F5F8FA;
+    outline: 0;
+}
+.container .row form .form-group img{
+    border-radius: 100%;
+}
+.container .row form .form-group:first-child{
+    text-align: center;
+}
+.container .row form .form-group:first-child h1{
+    font-size: 2rem;
+}
+.container .row form .form-group:first-child p{
+    padding: 15px;
+}
+.container .row form .form-group:nth-child(7){
+    align-items: center;
+    gap: 5px;
+}
+.container .row form .form-group:nth-child(7) label{
+    background-color: #1DA1F2;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+.container .row form .form-group:nth-child(8){
+    text-align: center;
+}
+.container .row form .form-group:nth-child(8) {
+    color: #657786;
+    font-weight: 600;
+}
+.container .row form .form-group:nth-child(7) a{
+    color: #1DA1F2;
+    font-weight: 600;
+}
+button {
+    width: 100%;
+    height: 35px;
+    background-color: #1DA1F2;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.error{
+    display: none;
+    color: red;
+}
+
+.alert {
+    color: white;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.alert.alert-error{
+    background-color: red;
+}
+
+.alert.alert-success{
+    background-color: rgb(12, 189, 12);
+}
