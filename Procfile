@@ -1,1 +1,1 @@
-web: gunicorn mankistar.wsgi.py
+web: gunicorn mankistar.wsgi
