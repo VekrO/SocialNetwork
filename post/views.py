@@ -11,6 +11,7 @@ from .models import Post, Comments
 class PostDeleteView(APIView):
 
     permission_classes = [IsAuthenticated, ]
+    renderer_classes = [renderers.JSONRenderer, ]
 
     def post(self, request):
 
@@ -65,6 +66,7 @@ class PostDetailView(LoginRequiredMixin, View):
 class PostCommentController(APIView):
 
     permission_classes = [IsAuthenticated, ]
+    renderer_classes = [renderers.JSONRenderer, ]
 
     def post(self, request):
 
