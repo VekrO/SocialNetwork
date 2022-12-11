@@ -44,3 +44,8 @@ class SettingsView(LoginRequiredMixin, View):
     def get(self, request):
         
         return render(request, 'src/settings.html')
+
+class Page404(View):
+
+    def get(self, request, exception=None):
+        return redirect('home')
