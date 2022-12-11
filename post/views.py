@@ -3,6 +3,7 @@ from django.views.generic.base import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import renderers
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Post, Comments
@@ -25,6 +26,7 @@ class PostDeleteView(APIView):
 class PostLikeView(APIView):
 
     permission_classes = [IsAuthenticated, ]
+    renderer_classes = [renderers.JSONRenderer, ]
 
     def post(self, request):
 
