@@ -45,7 +45,9 @@ class SettingsView(LoginRequiredMixin, View):
         
         return render(request, 'src/settings.html')
 
-class Page404(View):
+# 404 error and 500 error.
+def handler404(request, *args, **kwargs):
+    return redirect('home')
 
-    def get(self, request, exception=None):
-        return redirect('home')
+def handler500(request, *args, **kwargs):
+    return redirect('home')

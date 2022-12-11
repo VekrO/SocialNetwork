@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r(1e@mh69ldsqh!z+lcjx2mzf_p=3priaf%sz9_d8!#9ma685#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['socialnetwork-production.up.railway.app']
+ALLOWED_HOSTS = ['socialnetwork-production.up.railway.app', 'localhost', '127.0.0.1', '0.0.0.0:6375']
 
 
 # Application definition

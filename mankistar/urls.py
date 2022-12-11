@@ -15,3 +15,7 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# 404 and 500
+handler404 = 'pages.views.handler404'
+handler500 = 'pages.views.handler500'
