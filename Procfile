@@ -1,1 +1,1 @@
-web: gunicorn mankistar.wsgi --log-file -
+web: gunicorn mankistar.wsgi.py
