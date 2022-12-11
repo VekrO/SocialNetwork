@@ -13,7 +13,7 @@ async function deleteWarning(button){
 
       // Deletar postagem por FETCH.
       console.log(document.querySelector('.user-profile-image').dataset.token);
-      fetch('http://localhost:8000/post/delete/', {
+      fetch('https://socialnetwork-production.up.railway.app/post/delete/', {
         method: 'POST',
         headers: new Headers({
           'Authorization': 'Token ' + document.querySelector('.user-profile-image').dataset.token,

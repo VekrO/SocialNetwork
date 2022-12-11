@@ -23,7 +23,7 @@ form.addEventListener('submit', (e)=>{
         let id = document.querySelector('input[name=post_id]').value; // ID da postagem.
         let user_token = document.querySelector('.user-profile-image').dataset.token;
         
-        fetch('http://localhost:8000/post/comment/control/', {
+        fetch('https://socialnetwork-production.up.railway.app/post/comment/control/', {
             method: 'POST',
             headers: new Headers({
                 'Authorization': 'Token ' + user_token,

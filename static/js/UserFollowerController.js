@@ -26,7 +26,7 @@ if(btnUnfollow){
 // Função para seguir.
 async function follow(token, username){
 
-    fetch(`http://127.0.0.1:8000/user/follow/${username}/`, {
+    fetch(`https://socialnetwork-production.up.railway.app/user/follow/${username}/`, {
         method: 'POST',
         headers: new Headers({
             'Authorization': `Token ${token}`
@@ -44,7 +44,7 @@ async function follow(token, username){
 // Função para deixar de seguir.
 async function unfullow(token, username){
 
-    fetch(`http://127.0.0.1:8000/user/unfollow/${username}/`, {
+    fetch(`https://socialnetwork-production.up.railway.app/user/unfollow/${username}/`, {
         method: 'POST',
         headers: new Headers({
             'Authorization': `Token ${token}`

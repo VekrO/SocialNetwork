@@ -21,7 +21,7 @@ async function changeName() {
       if (result.isConfirmed) {
 
         // Realizar as alterações com o fetch.
-        fetch('http://localhost:8000/user/settings/', {
+        fetch('https://socialnetwork-production.up.railway.app/user/settings/', {
             method: 'PATCH',
             headers: new Headers({
                 'Authorization': 'Token ' + document.querySelector('.user-profile-image').dataset.token,
@@ -82,7 +82,7 @@ async function changePassword() {
         if (result.isConfirmed) {
   
           // Realizar as alterações com o fetch.
-          fetch('http://localhost:8000/user/settings/', {
+          fetch('https://socialnetwork-production.up.railway.app/user/settings/', {
               method: 'PATCH',
               headers: new Headers({
                   'Authorization': 'Token ' + document.querySelector('.user-profile-image').dataset.token,

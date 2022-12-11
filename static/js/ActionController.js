@@ -1,5 +1,5 @@
 function likeEvent(button){
-    fetch('http://localhost:8000/post/like/', {
+    fetch('https://socialnetwork-production.up.railway.app/post/like/', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Token ' + document.querySelector('.user-profile-image').dataset.token,
@@ -26,7 +26,7 @@ function likeEvent(button){
 
 function deleteComment(button){
     let commentNumber = document.querySelector('.post-footer-row-comment-value');
-    fetch('http://localhost:8000/post/comment/control/', {
+    fetch('https://socialnetwork-production.up.railway.app/post/comment/control/', {
         method: 'DELETE',
         headers: new Headers({
             'Authorization': 'Token ' + document.querySelector('.user-profile-image').dataset.token,
