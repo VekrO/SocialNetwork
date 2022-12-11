@@ -26,10 +26,10 @@
                     <a class="navbar-brand" href=""><i class="fa-brands fa-instagram"></i></a>
                 </li>
                 <li class="nav-item nav-item-search">
-                    <form class="form-search" method="GET">
+                    {% comment %} <form class="form-search" method="GET">
                         <button><i class="fa-solid fa-search"></i></button>
                         <input type="text" name="search" class="form-search-input" placeholder="Procure no Markinsta">
-                    </form>
+                    </form> {% endcomment %}
                 </li>
                 <li class="nav-item">
                     <span class="user-profile-name">Hey, <span class="user-profile-name-span">{{ request.user.name }}</span></span>
